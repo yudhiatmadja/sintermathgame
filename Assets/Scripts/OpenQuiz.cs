@@ -11,6 +11,7 @@ public class OpenQuiz : MonoBehaviour
         {
             isOpen = !isOpen;  
             quizPanel.SetActive(isOpen);
+            Time.timeScale = 0;
         }
     }
 }

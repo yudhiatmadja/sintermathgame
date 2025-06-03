@@ -13,7 +13,7 @@ public class HUDManager : MonoBehaviour
         pausePanel.SetActive(false);
         levelPanel.SetActive(false);
     }
-
+// testing
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -92,4 +92,22 @@ public class HUDManager : MonoBehaviour
             SceneManager.LoadScene(levelName);
         }
     }
+    public void NextLevel()
+{
+    Time.timeScale = 1;
+
+    int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+    int nextSceneIndex = currentSceneIndex + 1;
+
+    if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+    {
+        SceneManager.LoadScene(nextSceneIndex);
+    }
+    else
+    {
+        Debug.Log("Tidak ada level berikutnya!");
+       
+    }
+}
+
 }

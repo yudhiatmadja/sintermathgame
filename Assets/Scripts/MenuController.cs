@@ -4,24 +4,32 @@ using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
-    public Button[] menuItems; 
-    public RectTransform arrowIndicator; 
-    private int selectedIndex = 0; 
+    public Button[] menuItems;
+    public RectTransform arrowIndicator;
+    private int selectedIndex = 0;
     public AudioSource moveAudioSource;
     public AudioSource selectAudioSource;
+    public AudioSource bgmSrc;
     public AudioClip moveSound;
+    public AudioClip bgmClip;
     public AudioClip selectSound;
 
     private void Start()
     {
-        
+        if (bgmSrc != null && bgmClip != null)
+        {
+            bgmSrc.clip = bgmClip;
+            bgmSrc.loop = true;
+            bgmSrc.Play();
+        }
+
         for (int i = 0; i < menuItems.Length; i++)
         {
-            int index = i; 
+            int index = i;
             menuItems[i].onClick.AddListener(() => SelectMenuItem(index));
         }
 
-        UpdateMenu(); 
+        UpdateMenu();
 
         moveAudioSource = GetComponent<AudioSource>();
         selectAudioSource = GetComponent<AudioSource>();
@@ -45,7 +53,7 @@ public class MenuController : MonoBehaviour
             UpdateMenu();
         }
 
-        if (Input.GetKeyDown(KeyCode.Return)) 
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             PlaySelectSound();
             SelectMenuItem(selectedIndex);
@@ -63,7 +71,7 @@ public class MenuController : MonoBehaviour
         {
             case 0:
                 Debug.Log("Play Selected!");
-                SceneManager.LoadScene("GamePlay");
+                SceneManager.LoadScene("Level1");
                 break;
             case 1:
                 Debug.Log("Option Selected!");
@@ -90,5 +98,9 @@ public class MenuController : MonoBehaviour
         {
             selectAudioSource.PlayOneShot(selectSound);
         }
+    }
+    public void LeaderBoardScene()
+    {
+        SceneManager.LoadScene("Leaderboard");
     }
 }
